@@ -30,9 +30,6 @@ public class RefactorApplication {
     private static final HashMap<TriSet<String>, String> METHOD_UNIQUE_TO_OB = new HashMap<>();
     private static final HashMap<String, String> CLASS_UNIQUE_TO_OB = new HashMap<>();
 
-    private static final HashMap<String, String> FIELD_OB_TO_UNIQUE = new HashMap<>();
-    private static final HashMap<String, String> METHOD_OB_TO_UNIQUE = new HashMap<>();
-    private static final HashMap<String, String> CLASS_OB_TO_UNIQUE = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
         List<String> hooks = readFile("/hooks.txt");
@@ -42,29 +39,29 @@ public class RefactorApplication {
 
         for (ClassNode classNode : nodeMap.values()) {
             if (classNode.visibleAnnotations != null) {
-                CLASS_UNIQUE_TO_OB.put(classNode.name, (String) classNode.visibleAnnotations.get(0).values.get(1));
-                CLASS_OB_TO_UNIQUE.put((String) classNode.visibleAnnotations.get(0).values.get(1), classNode.name);
-            }
+                String obdClassName = (String) classNode.visibleAnnotations.get(0).values.get(1);
+                if (wrappedHooks.containsKey(obdClassName)) {
+                    CLASS_UNIQUE_TO_OB.put(classNode.name, wrappedHooks.get(obdClassName).getId());
 
-            for (MethodNode methodNode : classNode.methods) {
-                String obdName = null;
-                if (methodNode.visibleAnnotations != null) {
-                    for (AnnotationNode an : methodNode.visibleAnnotations) {
-                        if (an.values.contains("value")) {
-                            obdName = (String) an.values.get(1);
+                    for (MethodNode methodNode : classNode.methods) {
+                        String obdMethodName = null;
+                        if (methodNode.visibleAnnotations != null) {
+                            for (AnnotationNode an : methodNode.visibleAnnotations) {
+                                if (an.values.contains("value")) {
+                                    obdMethodName = (String) an.values.get(1);
+                                }
+                            }
                         }
+                        if (obdMethodName == null) {
+                            obdMethodName = methodNode.name;
+                        }
+                        METHOD_UNIQUE_TO_OB.put(new TriSet<>(classNode.name, methodNode.name, methodNode.desc), obdMethodName);
+                    }
+
+                    for (FieldNode fieldNode : classNode.fields) {
+                        FIELD_UNIQUE_TO_OB.put(fieldNode.name, (String) fieldNode.visibleAnnotations.get(0).values.get(1));
                     }
                 }
-                if (obdName == null) {
-                    obdName = methodNode.name;
-                }
-                METHOD_OB_TO_UNIQUE.put(obdName, methodNode.name);
-                METHOD_UNIQUE_TO_OB.put(new TriSet<>(classNode.name, methodNode.name, methodNode.desc), obdName);
-            }
-
-            for (FieldNode fieldNode : classNode.fields) {
-                FIELD_UNIQUE_TO_OB.put(fieldNode.name, (String) fieldNode.visibleAnnotations.get(0).values.get(1));
-                FIELD_OB_TO_UNIQUE.put((String) fieldNode.visibleAnnotations.get(0).values.get(1), fieldNode.name);
             }
         }
 
