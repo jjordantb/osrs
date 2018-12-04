@@ -26,7 +26,7 @@ public class RefactorApplication {
     private static final Pattern METHOD_REGEX = Pattern.compile("Ξ⥰⥰➤\\s([a-zA-Z0-9]+)\\.+([a-zA-Z]{1,2})\\.([a-zA-Z]{1,})\\(\\)\\s+:\\s(.+)");
     private static final Pattern NAME_REGEX = Pattern.compile("L([a-z0-9]+);");
 
-    private static final HashMap<String, String> FIELD_UNIQUE_TO_OB = new HashMap<>();
+    private static final HashMap<TriSet<String>, String> FIELD_UNIQUE_TO_OB = new HashMap<>();
     private static final HashMap<TriSet<String>, String> METHOD_UNIQUE_TO_OB = new HashMap<>();
     private static final HashMap<String, String> CLASS_UNIQUE_TO_OB = new HashMap<>();
 
@@ -55,11 +55,17 @@ public class RefactorApplication {
                         if (obdMethodName == null) {
                             obdMethodName = methodNode.name;
                         }
-                        METHOD_UNIQUE_TO_OB.put(new TriSet<>(classNode.name, methodNode.name, methodNode.desc), obdMethodName);
+                        final DMethod method = wrappedHooks.get(obdClassName).getMethods().get(obdMethodName);
+                        if (method != null) {
+                            METHOD_UNIQUE_TO_OB.put(new TriSet<>(classNode.name, methodNode.name, methodNode.desc), method.getId());
+                        }
                     }
 
                     for (FieldNode fieldNode : classNode.fields) {
-                        FIELD_UNIQUE_TO_OB.put(fieldNode.name, (String) fieldNode.visibleAnnotations.get(0).values.get(1));
+                        final DField field = wrappedHooks.get(obdClassName).getFields().get((String) fieldNode.visibleAnnotations.get(0).values.get(1));
+                        if (field != null) {
+                            FIELD_UNIQUE_TO_OB.put(new TriSet<>(classNode.name, fieldNode.name, fieldNode.desc), field.getId());
+                        }
                     }
                 }
             }
