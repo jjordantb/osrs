@@ -37,7 +37,7 @@ public final class client extends class47 implements class290 {
    static int field812;
    static int[] field852;
    static final class60 field670;
-   static class207 field842;
+   static NodeDeque field842;
    static int field825;
    static int field826;
    static int field810;
@@ -104,9 +104,9 @@ public final class client extends class47 implements class290 {
    static int[] field867;
    static int[] field846;
    static int field837;
-   static class207 field843;
+   static NodeDeque field843;
    static int field734;
-   static class207 field844;
+   static NodeDeque field844;
    static int[] field892;
    static int[] field774;
    static class4[] field895;
@@ -257,10 +257,10 @@ public final class client extends class47 implements class290 {
    static boolean[] field768;
    static int[] field699;
    static int field769;
-   static class207[][][] field829;
-   static class207 field688;
-   static class207 field773;
-   static class207 field711;
+   static NodeDeque[][][] field829;
+   static NodeDeque field688;
+   static NodeDeque field773;
+   static NodeDeque field711;
    static int[] field775;
    static int[] field776;
    static int[] field777;
@@ -386,10 +386,10 @@ public final class client extends class47 implements class290 {
       field768 = new boolean[8];
       field699 = new int[]{768, 1024, 1280, 512, 1536, 256, 0, 1792};
       field769 = -1;
-      field829 = new class207[4][104][104];
-      field688 = new class207();
-      field773 = new class207();
-      field711 = new class207();
+      field829 = new NodeDeque[4][104][104];
+      field688 = new NodeDeque();
+      field773 = new NodeDeque();
+      field711 = new NodeDeque();
       field775 = new int[25];
       field776 = new int[25];
       field777 = new int[25];
@@ -457,9 +457,9 @@ public final class client extends class47 implements class290 {
       field839 = 0;
       field685 = 0;
       field841 = 0;
-      field842 = new class207();
-      field843 = new class207();
-      field844 = new class207();
+      field842 = new NodeDeque();
+      field843 = new NodeDeque();
+      field844 = new NodeDeque();
       field800 = new class204(512);
       field853 = 0;
       field847 = -2;
@@ -2441,7 +2441,7 @@ public final class client extends class47 implements class290 {
                      }
                   }
 
-                  field688 = new class207();
+                  field688 = new NodeDeque();
                   class170.field2150.method1755();
 
                   for(var33 = 0; var33 < class256.field3302; ++var33) {

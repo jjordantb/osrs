@@ -1,6 +1,6 @@
 public class class90 extends class107 {
-   class207 field1297 = new class207();
-   class207 field1296 = new class207();
+   NodeDeque field1297 = new NodeDeque();
+   NodeDeque field1296 = new NodeDeque();
    int field1298 = 0;
    int field1299 = -1;
 
@@ -29,7 +29,7 @@ public class class90 extends class107 {
          var1 = var1.field2495;
       }
 
-      class207.method4307(var2, var1);
+      NodeDeque.method4307(var2, var1);
       this.field1299 = ((class102)this.field1296.field2498.field2495).field1401;
    }
 

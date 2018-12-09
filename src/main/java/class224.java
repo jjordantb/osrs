@@ -1,6 +1,6 @@
 public class class224 extends class107 {
    class220 field2616;
-   class207 field2615 = new class207();
+   NodeDeque field2615 = new NodeDeque();
    class90 field2617 = new class90();
 
    class224(class220 var1) {

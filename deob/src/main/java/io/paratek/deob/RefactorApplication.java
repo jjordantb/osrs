@@ -11,6 +11,10 @@ import jdk.internal.org.objectweb.asm.tree.*;
 import org.json.JSONArray;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
@@ -68,6 +72,23 @@ public class RefactorApplication {
                         }
                     }
                 }
+            }
+        }
+
+        final File fileDirector = new File("C:\\Users\\Parametric\\IdeaProjects\\osrs\\src\\main\\java");
+        for (File file : Objects.requireNonNull(fileDirector.listFiles())) {
+            if (file.isFile()) {
+                String contents = readFileToString(file);
+                for (Map.Entry<String, String> entry : CLASS_UNIQUE_TO_OB.entrySet()) {
+                    if (file.getName().endsWith(".java") && file.getName().contains(entry.getKey())) {
+                        file.renameTo(new File("C:\\Users\\Parametric\\IdeaProjects\\osrs\\src\\main\\java\\" + entry.getValue() + ".java"));
+                    }
+                    contents.replaceAll(entry.getKey(), entry.getValue());
+                }
+
+                file.delete();
+                file.createNewFile();
+                Files.write(Paths.get(file.getPath()), contents.getBytes());
             }
         }
 
@@ -257,6 +278,11 @@ public class RefactorApplication {
 //        }
 //
 //        dumpJar(nodeMap, "C:\\Users\\Parametric\\Desktop\\deob_renamed_177.jar");
+    }
+
+    public static String readFileToString(File file) throws IOException {
+        byte[] encoded = Files.readAllBytes(Paths.get(file.getPath()));
+        return new String(encoded);
     }
 
     private static Map<String, DClass> getHooks(List<String> hookData) {

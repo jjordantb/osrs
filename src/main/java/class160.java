@@ -59,7 +59,7 @@ public class class160 {
             var6 = (var5 >> 4 & 7) + class187.field2433;
             var7 = (var5 & 7) + class72.field1100;
             if (var6 >= 0 && var7 >= 0 && var6 < 104 && var7 < 104) {
-               class207 var8 = client.field829[class60.field599][var6][var7];
+               NodeDeque var8 = client.field829[class60.field599][var6][var7];
                if (var8 != null) {
                   for(class81 var9 = (class81)var8.method4298(); var9 != null; var9 = (class81)var8.method4283()) {
                      if ((var2 & 32767) == var9.field1213 && var4 == var9.field1214) {
@@ -211,7 +211,7 @@ public class class160 {
                         var4 = (var2 & 7) + class72.field1100;
                         var5 = var1.method3792();
                         if (var3 >= 0 && var4 >= 0 && var3 < 104 && var4 < 104) {
-                           class207 var34 = client.field829[class60.field599][var3][var4];
+                           NodeDeque var34 = client.field829[class60.field599][var3][var4];
                            if (var34 != null) {
                               for(var35 = (class81)var34.method4298(); var35 != null; var35 = (class81)var34.method4283()) {
                                  if ((var5 & 32767) == var35.field1213) {
@@ -313,7 +313,7 @@ public class class160 {
                               var35.field1213 = var3;
                               var35.field1214 = var2;
                               if (client.field829[class60.field599][var5][var6] == null) {
-                                 client.field829[class60.field599][var5][var6] = new class207();
+                                 client.field829[class60.field599][var5][var6] = new NodeDeque();
                               }
 
                               client.field829[class60.field599][var5][var6].method4276(var35);

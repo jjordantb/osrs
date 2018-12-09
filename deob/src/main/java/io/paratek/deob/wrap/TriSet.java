@@ -26,4 +26,9 @@ public class TriSet<T> {
     public int hashCode() {
         return Objects.hash(t1, t2, t3);
     }
+
+    @Override
+    public String toString() {
+        return "TriSet@" + this.hashCode() + "{" + this.t1 + ", " + this.t2 + ", " + this.t3 + "}";
+    }
 }

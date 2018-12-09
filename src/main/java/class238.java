@@ -10,7 +10,7 @@ public class class238 {
    }
 
    static final void method4784(int var0, int var1) {
-      class207 var2 = client.field829[class60.field599][var0][var1];
+      NodeDeque var2 = client.field829[class60.field599][var0][var1];
       if (var2 == null) {
          class243.field3173.method3078(class60.field599, var0, var1);
       } else {
